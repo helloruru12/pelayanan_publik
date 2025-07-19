@@ -68,7 +68,14 @@ function getTotalPendingAndInProgress() {
 
 function getComplaintCountByMonth($year, $month) {
     global $koneksi;
-    $sql = "SELECT COUNT(*) AS total FROM pengaduan WHERE YEAR(tgl_pengaduan) = $year AND MONTH(tgl_pengaduan) = '$month'";
+    $nik = $_SESSION['nik'];
+    $nik_escaped = mysqli_real_escape_string($koneksi, $nik);
+
+    $sql = "SELECT COUNT(*) AS total FROM pengaduan 
+            WHERE YEAR(tgl_pengaduan) = $year 
+            AND MONTH(tgl_pengaduan) = '$month'
+            AND nik = '$nik_escaped'";
+
     $result = mysqli_query($koneksi, $sql);
     if ($result) {
         $row = mysqli_fetch_assoc($result);
@@ -321,10 +328,14 @@ for ($m = 1; $m <= 12; $m++) {
                 <div class="card-body">
                     <div class="list-group list-group-flush">
                         <?php
-                        $sql_activity = "SELECT pengaduan.id_pengaduan, pengaduan.tgl_pengaduan, pengaduan.status, masyarakat.nama
-                                FROM pengaduan
-                                JOIN masyarakat ON pengaduan.nik = masyarakat.nik
-                                ORDER BY pengaduan.tgl_pengaduan DESC LIMIT 5";
+                        $nik = $_SESSION['nik'];
+                $nik_escaped = mysqli_real_escape_string($koneksi, $nik);
+        $sql_activity = "SELECT pengaduan.id_pengaduan, pengaduan.tgl_pengaduan, pengaduan.status, masyarakat.nama
+                 FROM pengaduan
+                 JOIN masyarakat ON pengaduan.nik = masyarakat.nik
+                 WHERE pengaduan.nik = '$nik_escaped'
+                 ORDER BY pengaduan.tgl_pengaduan DESC LIMIT 5";
+
                         $query_activity = mysqli_query($koneksi, $sql_activity);
 
                         if (mysqli_num_rows($query_activity) > 0) {

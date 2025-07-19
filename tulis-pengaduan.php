@@ -30,6 +30,12 @@
                     </select>
                 </div>
 
+                <!-- ✅ Tambahkan Estimasi Penanganan -->
+                <div class="form-group mb-3">
+                    <label class="text-muted font-weight-semibold mb-1">Estimasi Penanganan</label>
+                    <input type="text" id="estimasi_penanganan" name="estimasi_penanganan" class="form-control form-control-sm bg-light" readonly>
+                </div>
+
                 <div class="form-group mb-3">
                     <label class="text-muted font-weight-semibold mb-1">Isi Laporan</label>
                     <textarea name="isi_laporan" class="form-control form-control-sm bg-light" rows="3" required></textarea>
@@ -58,6 +64,26 @@
                         <i class="fas fa-save mr-1"></i> Simpan
                     </button>
                 </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const kategoriSelect = document.querySelector('select[name="jenis_pengaduan"]');
+                        const estimasiInput = document.getElementById('estimasi_penanganan');
+
+                        const estimasiMap = {
+                            'Keamanan': '2 Hari',
+                            'Kesehatan': '1 Hari',
+                            'Fasilitas': '3 Hari',
+                            'Kebersihan': '1 Hari',
+                            'Sosial': '2 Hari',
+                            'Kesejahteraan': '5 Hari'
+                        };
+
+                        kategoriSelect.addEventListener('change', function () {
+                            const selected = this.value;
+                            estimasiInput.value = estimasiMap[selected] || '';
+                        });
+                    });
+                </script>
 
             </form>
 

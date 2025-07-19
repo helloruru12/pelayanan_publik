@@ -39,7 +39,7 @@
                             <td><?= $data['telp']; ?></td>
                             <td>
                                 <a href="#" data-toggle="modal" data-target="#modalFotoUser<?= $data['nik']; ?>">
-                                    <img src="../foto_user/<?= $data['foto']?>" class="img-thumbnail rounded shadow-sm" style="width: 75px;">
+                                    <img src="../img/profil/<?= $data['foto']?>" class="img-thumbnail rounded shadow-sm" style="width: 75px;">
                                 </a>
                             </td>
                             <td>
@@ -66,7 +66,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body bg-light text-center">
-                                        <img src="../foto_user/<?= $data['foto']; ?>" class="img-fluid rounded shadow-sm">
+                                        <img src="../img/profil/<?= $data['foto']; ?>" class="img-fluid rounded shadow-sm">
                                     </div>
                                 </div>
                             </div>

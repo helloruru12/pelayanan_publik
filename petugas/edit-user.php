@@ -2,7 +2,7 @@
 include '../koneksi.php';
 
 if (!isset($_GET['nik'])) {
-    echo "<script>alert('NIK tidak ditemukan!'); window.location.href='petugas.php?url=lihat-pengajuan';</script>";
+    echo "<script>alert('NIK tidak ditemukan!'); window.location.href='petugas.php?url=lihat-user';</script>";
     exit;
 }
 
@@ -11,7 +11,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM masyarakat WHERE nik='$nik'");
 $data = mysqli_fetch_assoc($query);
 
 if (!$data) {
-    echo "<script>alert('Data user tidak ditemukan!'); window.location.href='petugas.php?url=lihat-pengajuan';</script>";
+    echo "<script>alert('Data user tidak ditemukan!'); window.location.href='petugas.php?url=lihat-user';</script>";
     exit;
 }
 
@@ -24,7 +24,7 @@ if (isset($_POST['update'])) {
     if ($_FILES['foto']['name']) {
         $foto = $_FILES['foto']['name'];
         $tmp = $_FILES['foto']['tmp_name'];
-        move_uploaded_file($tmp, "../foto_user/" . $foto);
+        move_uploaded_file($tmp, "../profil/" . $foto);
     } else {
         $foto = $data['foto'];
     }
@@ -38,7 +38,7 @@ if (isset($_POST['update'])) {
         WHERE nik='$nik'");
 
     if ($update) {
-        echo "<script>alert('Data berhasil diperbarui'); window.location.href='petugas.php?url=lihat-pengajuan';</script>";
+        echo "<script>alert('Data berhasil diperbarui'); window.location.href='petugas.php?url=lihat-user';</script>";
     } else {
         echo "<script>alert('Gagal mengupdate data');</script>";
     }
@@ -122,7 +122,7 @@ if (isset($_POST['update'])) {
             <div class="form-group">
                 <label class="text-muted">Foto</label><br>
                 <?php if ($data['foto']) { ?>
-                    <img src="../foto_user/<?= $data['foto']; ?>" class="img-thumbnail mb-2" width="100"><br>
+                    <img src="../profil/<?= $data['foto']; ?>" class="img-thumbnail mb-2" width="100"><br>
                 <?php } ?>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="foto" name="foto" accept="image/*">
